@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace ООАиД_ЛР10
 {
-    interface IObserver
+    public interface IObserver
     {
-        void Update(Object ob);
+        void Update(object ob);
     }
 
-    interface IObservable
+    public interface IObservable
     {
         void RegisterObserver(IObserver o);
         void RemoveObserver(IObserver o);
         void NotifyObservers();
     }
 
-    class Observable : IObservable
+    public class Observable : IObservable
     {
         State sInfo; // текущее состояние
         List<IObserver> observers; //список наблюдателей
@@ -27,6 +27,7 @@ namespace ООАиД_ЛР10
         public void RegisterObserver(IObserver o)
         {
             if (o == null) throw new ArgumentNullException();
+            if (observers.Contains(o)) throw new Exception();
             observers.Add(o);
         }
 
@@ -50,9 +51,13 @@ namespace ООАиД_ЛР10
             sInfo.Stat = rnd.Next(1, 100);
             NotifyObservers();
         }
+        public int GetState()
+        {
+            return sInfo.Stat;
+        }
     }
 
-    class State
+    public class State
     {
         int state = 0;
         public int Stat { get { return state; } set { state = value; } }
@@ -84,7 +89,7 @@ namespace ООАиД_ЛР10
     //    }
     //}
 
-    class CountObserver : IObserver
+    public class CountObserver : IObserver
     {
         IObservable obs;
         int count = 0;
@@ -105,7 +110,7 @@ namespace ООАиД_ЛР10
             f.GetCountTextBox().Text = count.ToString();
         }
     }
-    class CurrentObserver : IObserver
+    public class CurrentObserver : IObserver
     {
         IObservable obs;
         State st = new State();
