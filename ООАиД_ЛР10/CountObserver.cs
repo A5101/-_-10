@@ -7,18 +7,16 @@ namespace ООАиД_ЛР10
     {
         void Update(object ob);
     }
-
     public interface IObservable
     {
         void RegisterObserver(IObserver o);
         void RemoveObserver(IObserver o);
         void NotifyObservers();
     }
-
     public class Observable : IObservable
     {
-        State sInfo; // текущее состояние
-        List<IObserver> observers; //список наблюдателей
+        State sInfo;
+        List<IObserver> observers; 
         public Observable()
         {
             observers = new List<IObserver>();
@@ -30,13 +28,11 @@ namespace ООАиД_ЛР10
             if (observers.Contains(o)) throw new Exception();
             observers.Add(o);
         }
-
         public void RemoveObserver(IObserver o)
         {
             if (o == null) throw new ArgumentNullException();
             observers.Remove(o);
         }
-
         public void NotifyObservers()
         {
             foreach (IObserver o in observers)
@@ -44,7 +40,6 @@ namespace ООАиД_ЛР10
                 o.Update(sInfo);
             }
         }
-
         public void Change()
         {
             Random rnd = new Random();
@@ -56,39 +51,11 @@ namespace ООАиД_ЛР10
             return sInfo.Stat;
         }
     }
-
     public class State
     {
         int state = 0;
         public int Stat { get { return state; } set { state = value; } }
     }
-
-    //class Broker : IObserver
-    //{
-    //    public string Name { get; set; }
-    //    IObservable stock;
-    //    public Broker(string name, IObservable obs)
-    //    {
-    //        this.Name = name;
-    //        stock = obs;
-    //        stock.RegisterObserver(this);
-    //    }
-    //    public void Update(object ob)
-    //    {
-    //        StockInfo sInfo = (StockInfo)ob;
-
-    //        if (sInfo.USD > 30)
-    //            Console.WriteLine("Брокер {0} продает доллары;  Курс доллара: {1}", this.Name, sInfo.USD);
-    //        else
-    //            Console.WriteLine("Брокер {0} покупает доллары;  Курс доллара: {1}", this.Name, sInfo.USD);
-    //    }
-    //    public void StopTrade()
-    //    {
-    //        stock.RemoveObserver(this);
-    //        stock = null;
-    //    }
-    //}
-
     public class CountObserver : IObserver
     {
         IObservable obs;

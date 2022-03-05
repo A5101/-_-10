@@ -15,7 +15,6 @@ namespace ООАиД_ЛР10
             coobs = new CountObserver(this);
             cuobs = new CurrentObserver(this);
         }
-
         private void StartButton_Click(object sender, EventArgs e)
         {
             observable = new Observable();
@@ -24,12 +23,10 @@ namespace ООАиД_ЛР10
             checkBox1.Checked = false;
             checkBox2.Checked = false;
         }
-
         private void ChangeButton_Click(object sender, EventArgs e)
         {
             observable.Change();
         }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
@@ -43,7 +40,6 @@ namespace ООАиД_ЛР10
                 CountActTextBox.Text = "";
             }
         }
-
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
@@ -57,12 +53,10 @@ namespace ООАиД_ЛР10
                 CurrStateTextBox.Text = "";
             }
         }
-
         public TextBox GetCountTextBox()
         {
             return CountActTextBox;
         }
-
         public TextBox GetCurrStateTextBox()
         {
             return CurrStateTextBox;
